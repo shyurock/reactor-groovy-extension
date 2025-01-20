@@ -1,0 +1,3 @@
+moduleName=Reactor extension module
+moduleVersion=${version}
+extensionClasses=com.dragon.extension.FluxExtension,com.dragon.extension.MonoExtension

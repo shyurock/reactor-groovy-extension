@@ -1,0 +1,21 @@
+plugins {
+    id 'groovy'
+}
+
+group = 'org.shyurock.reactor'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.projectreactor:reactor-core:3.+'
+    implementation 'org.apache.groovy:groovy:4.+'
+}
