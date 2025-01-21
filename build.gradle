@@ -33,10 +33,10 @@ java {
 publishing {
     publications {
         maven(MavenPublication) {
-            group: 'org.shyurock'
-            artifactId: 'reactor-groovy-extension'
-            artifact: jar
-            artifact: sourcesJar
+            group 'org.shyurock'
+            artifactId 'reactor-groovy-extension'
+            artifact jar
+            artifact sourcesJar
         }
     }
     repositories {
