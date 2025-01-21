@@ -43,8 +43,8 @@ publishing {
             name = "GitHubPackages"
             url "https://maven.pkg.github.com/shyurock/reactor-groovy-extension"
             credentials {
-                username = "shyurock"
-                password = "${GITHUB_TOKEN}"
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
         }
     }
