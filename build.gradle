@@ -33,7 +33,6 @@ java {
 publishing {
     publications {
         maven(MavenPublication) {
-            group 'org.shyurock'
             artifactId 'reactor-groovy-extension'
             artifact jar
             artifact sourcesJar
@@ -42,7 +41,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url "https://maven.pkg.github.com"
+            url "https://maven.pkg.github.com/shyurock/reactor-groovy-extension"
             credentials {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
