@@ -16,8 +16,8 @@ on:
 jobs:
   build:
     env:
-      GITHUB_USER: 'shyurock'
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_USER: 'shyurock'
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     runs-on: ubuntu-latest
     permissions:
