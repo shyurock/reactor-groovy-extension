@@ -8,12 +8,13 @@ import java.util.function.Predicate
 class MonoExtension {
 
     /**
+     * Flattens the next value produced by the specified action function.
      *
-     * @param self
-     * @param action
-     * @return
+     * @param self the Mono to operate on
+     * @param action the function to apply to the value of the Mono, returning another Mono
+     * @return a Mono that emits the original value after applying the action
      */
-    static <T, R> Mono<T> flatNext(Mono<T> self, Function<T, Mono<R>> action) {
+    static <T> Mono<T> flatNext(Mono<T> self, Function<T, Mono<T>> action) {
         self.flatMap {
             action.apply(it)
                     .thenReturn(it)
@@ -21,13 +22,14 @@ class MonoExtension {
     }
 
     /**
+     * Flattens the next value if the predicate is true.
      *
-     * @param self
-     * @param predicate
-     * @param action
-     * @return
+     * @param self the Mono to operate on
+     * @param predicate the condition to check
+     * @param action the function to apply to the value of the Mono if the predicate is true
+     * @return a Mono that emits the original value if the predicate is true, or the same Mono otherwise
      */
-    static <T, R> Mono<T> flatNextIf(Mono<T> self, Predicate<T> predicate, Function<T, Mono<R>> action) {
+    static <T> Mono<T> flatNextIf(Mono<T> self, Predicate<T> predicate, Function<T, Mono<T>> action) {
         self.flatMap {
             if (predicate.test(it)) {
                 action.apply(it)
@@ -39,13 +41,14 @@ class MonoExtension {
     }
 
     /**
+     * Flattens the next value if the condition is true.
      *
-     * @param self
-     * @param condition
-     * @param action
-     * @return
+     * @param self the Mono to operate on
+     * @param condition the condition to check
+     * @param action the function to apply to the value of the Mono if the condition is true
+     * @return a Mono that emits the original value if the condition is true, or the same Mono otherwise
      */
-    static <T, R> Mono<T> flatNextIf(Mono<T> self, Boolean condition, Function<T, Mono<R>> action) {
+    static <T> Mono<T> flatNextIf(Mono<T> self, Boolean condition, Function<T, Mono<T>> action) {
         self.flatMap {
             if (condition) {
                 action.apply(it)
@@ -57,34 +60,37 @@ class MonoExtension {
     }
 
     /**
+     * Emits an error if the Mono is empty.
      *
-     * @param self
-     * @param ex
-     * @return
+     * @param self the Mono to operate on
+     * @param ex the exception to emit if the Mono is empty
+     * @return a Mono that emits an error if empty, or the original Mono
      */
     static <T> Mono<T> errorIfEmpty(Mono<T> self, Exception ex) {
         self.switchIfEmpty(Mono.error(ex))
     }
 
     /**
+     * Emits an error if the predicate is false.
      *
-     * @param self
-     * @param predicate
-     * @param ex
-     * @return
+     * @param self the Mono to operate on
+     * @param predicate the condition to check
+     * @param ex the exception to emit if the predicate is false
+     * @return a Mono that emits an error if the predicate is false, or the original Mono
      */
     static <T> Mono<T> errorIfConditionFalse(Mono<T> self, Predicate<T> predicate, Exception ex) {
-        self.flatMap {predicate.test(it) ? self : Mono.error(ex) as Mono<T>}
+        self.flatMap { predicate.test(it) ? self : Mono.error(ex) as Mono<T> }
     }
 
     /**
+     * Emits an error if the predicate is true.
      *
-     * @param self
-     * @param predicate
-     * @param ex
-     * @return
+     * @param self the Mono to operate on
+     * @param predicate the condition to check
+     * @param ex the exception to emit if the predicate is true
+     * @return a Mono that emits an error if the predicate is true, or the original Mono
      */
     static <T> Mono<T> errorIfConditionTrue(Mono<T> self, Predicate<T> predicate, Exception ex) {
-        self.flatMap {predicate.test(it) ? Mono.error(ex) as Mono<T> : self }
+        self.flatMap { predicate.test(it) ? Mono.error(ex) as Mono<T> : self }
     }
 }
