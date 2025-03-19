@@ -1,10 +1,12 @@
 package org.shyurock.reactor.extension
 
+import groovy.transform.CompileStatic
 import reactor.core.publisher.Mono
 
 import java.util.function.Function
 import java.util.function.Predicate
 
+@CompileStatic
 class MonoExtension {
 
     /**

@@ -1,11 +1,13 @@
 package org.shyurock.reactor.extension
 
+import groovy.transform.CompileStatic
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 import java.time.Duration
 import java.util.function.Function
 
+@CompileStatic
 class FluxExtension {
 
     /**
