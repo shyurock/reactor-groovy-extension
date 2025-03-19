@@ -18,7 +18,7 @@ class FluxExtension {
      * @param action a function that maps each element to a Mono<T>
      * @return a Flux that emits the original elements after applying the action
      */
-    static <T> Flux<T> flatNext(Flux<T> self, Function<T, Mono<T>> action) {
+    static <T, R> Flux<T> flatNext(Flux<T> self, Function<T, Mono<R>> action) {
         self.flatMap {
             action.apply(it)
                     .thenReturn(it)

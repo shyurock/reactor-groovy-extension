@@ -16,7 +16,7 @@ class MonoExtension {
      * @param action the function to apply to the value of the Mono, returning another Mono
      * @return a Mono that emits the original value after applying the action
      */
-    static <T> Mono<T> flatNext(Mono<T> self, Function<T, Mono<T>> action) {
+    static <T, R> Mono<T> flatNext(Mono<T> self, Function<T, Mono<R>> action) {
         self.flatMap {
             action.apply(it)
                     .thenReturn(it)
@@ -31,7 +31,7 @@ class MonoExtension {
      * @param action the function to apply to the value of the Mono if the predicate is true
      * @return a Mono that emits the original value if the predicate is true, or the same Mono otherwise
      */
-    static <T> Mono<T> flatNextIf(Mono<T> self, Predicate<T> predicate, Function<T, Mono<T>> action) {
+    static <T, R> Mono<T> flatNextIf(Mono<T> self, Predicate<T> predicate, Function<T, Mono<R>> action) {
         self.flatMap {
             if (predicate.test(it)) {
                 action.apply(it)
@@ -50,7 +50,7 @@ class MonoExtension {
      * @param action the function to apply to the value of the Mono if the condition is true
      * @return a Mono that emits the original value if the condition is true, or the same Mono otherwise
      */
-    static <T> Mono<T> flatNextIf(Mono<T> self, Boolean condition, Function<T, Mono<T>> action) {
+    static <T, R> Mono<T> flatNextIf(Mono<T> self, Boolean condition, Function<T, Mono<R>> action) {
         self.flatMap {
             if (condition) {
                 action.apply(it)
